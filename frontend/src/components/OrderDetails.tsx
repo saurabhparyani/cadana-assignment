@@ -1,4 +1,5 @@
 import React from "react";
+import moment from "moment";
 
 const OrderDetails: React.FC<{ orderDetails: any }> = ({ orderDetails }) => {
   return (
@@ -8,12 +9,12 @@ const OrderDetails: React.FC<{ orderDetails: any }> = ({ orderDetails }) => {
       <div># of Sushi B bought: {orderDetails.orderData.quantity_sushi_B}</div>
       <div>
         Current Time of Ordering:{" "}
-        {new Date(orderDetails.orderData.time).toLocaleTimeString([], {
-          hour: "2-digit",
-          minute: "2-digit",
-        })}
+        {moment(orderDetails.orderData.time).format("hh:mm A")}
       </div>
-      <div>Each discount applied: {orderDetails.orderData.discount * 100}%</div>
+      <div>
+        Each discount applied:{" "}
+        {(orderDetails.orderData.discount * 100).toFixed(2)}%
+      </div>
       <div>
         Total discount: {orderDetails.orderData.total_discount.toFixed(2)}£
       </div>

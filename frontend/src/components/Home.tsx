@@ -7,30 +7,20 @@ const Home: React.FC = () => {
   const [orderDetails, setOrderDetails] = useState<any>(null);
 
   const addToCart = async () => {
-    try {
-      const response = await fetch("http://localhost:5000/add_to_cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          quantity_sushi_A: sushiA,
-          quantity_sushi_B: sushiB,
-        }),
-      });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const orderData = await response.json();
+    const response = await fetch("http://localhost:5000/add_to_cart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        quantity_sushi_A: sushiA,
+        quantity_sushi_B: sushiB,
+      }),
+    });
+    const orderData = await response.json();
 
-      const ordersResponse = await fetch("http://localhost:5000/orders");
-      if (!ordersResponse.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const ordersData = await ordersResponse.json();
+    const ordersResponse = await fetch("http://localhost:5000/orders");
+    const ordersData = await ordersResponse.json();
 
-      setOrderDetails({ orderData, ordersData });
-    } catch (error) {
-      console.error("Fetch error:", error);
-    }
+    setOrderDetails({ orderData, ordersData });
   };
 
   return (
